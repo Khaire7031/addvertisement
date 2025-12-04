@@ -1889,3 +1889,57 @@ a {
   }
 
 }
+
+
+
+
+/*-----------------------------------*\
+  #PG REGISTRATION FORM
+\*-----------------------------------*/
+
+.pg-registration {
+  background: var(--cultured-2);
+  padding-block: var(--section-padding);
+}
+
+.pg-registration .section-subtitle {
+  margin-inline: auto;
+}
+
+.pg-registration .section-title {
+  margin-bottom: 30px;
+}
+
+.pg-form {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-2);
+}
+
+.pg-form input,
+.pg-form textarea,
+.pg-form select {
+  transition: var(--transition);
+}
+
+.pg-form input:focus,
+.pg-form textarea:focus,
+.pg-form select:focus {
+  border-color: var(--orange-soda) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px hsla(9, 100%, 62%, 0.1);
+}
+
+.pg-form textarea {
+  resize: vertical;
+  font-family: var(--ff-nunito-sans);
+}
+
+.pg-form .btn {
+  border: 1px solid var(--orange-soda);
+}
+
+.pg-form .btn:is(:hover, :focus) {
+  background: var(--black);
+  border-color: var(--black);
+}
