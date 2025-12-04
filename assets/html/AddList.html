@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add PG Listing | Advertisement</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    .add-list-section {
+      padding: 60px 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-container h1 {
+      color: #ff0000;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .form-container .form-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: "Nunito Sans", sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff0000;
+      box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .required {
+      color: #ff0000;
+    }
+
+    .form-section-title {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 25px -40px 20px -40px;
+      border-left: 4px solid #ff0000;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .submit-btn {
+      background: #ff0000;
+      color: white;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+      font-family: "Poppins", sans-serif;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background: #cc0000;
+    }
+
+    .reset-btn {
+      background: #6c757d;
+      color: white;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+      font-family: "Poppins", sans-serif;
+      margin-top: 10px;
+    }
+
+    .reset-btn:hover {
+      background: #5a6268;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-container {
+        padding: 20px;
+      }
+
+      .form-section-title {
+        margin: 20px -20px 20px -20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <section class="add-list-section">
+      <div class="container">
+        <div class="form-container">
+          <h1>Add Your PG Listing</h1>
+          <p class="form-subtitle">Fill in the details below to list your PG accommodation</p>
+
+          <form id="pgListingForm" action="#" method="POST">
+
+            <!-- PG Basic Information -->
+            <div class="form-section-title">PG Basic Information</div>
+
+            <div class="form-group">
+              <label for="pgName">PG Name <span class="required">*</span></label>
+              <input type="text" id="pgName" name="pgName" placeholder="Enter PG name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="pgAddress">Address <span class="required">*</span></label>
+              <textarea id="pgAddress" name="pgAddress" placeholder="Enter complete address with street, area, city, and postal code" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City <span class="required">*</span></label>
+                <input type="text" id="city" name="city" placeholder="Enter city" required>
+              </div>
+
+              <div class="form-group">
+                <label for="pincode">Postal Code <span class="required">*</span></label>
+                <input type="text" id="pincode" name="pincode" placeholder="Enter postal code" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pgType">PG Type <span class="required">*</span></label>
+                <select id="pgType" name="pgType" required>
+                  <option value="">-- Select PG Type --</option>
+                  <option value="boys">Boys</option>
+                  <option value="girls">Girls</option>
+                  <option value="unisex">Unisex (Co-ed)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pgSize">Number of Rooms <span class="required">*</span></label>
+                <input type="number" id="pgSize" name="pgSize" placeholder="Enter number of rooms" min="1" required>
+              </div>
+            </div>
+
+            <!-- Rent & Availability -->
+            <div class="form-section-title">Rent & Availability</div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="rentAmount">Monthly Rent <span class="required">*</span></label>
+                <input type="number" id="rentAmount" name="rentAmount" placeholder="Enter monthly rent in rupees" min="1" required>
+              </div>
+
+              <div class="form-group">
+                <label for="deposit">Security Deposit <span class="required">*</span></label>
+                <input type="number" id="deposit" name="deposit" placeholder="Enter security deposit amount" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="availableFrom">Available From <span class="required">*</span></label>
+                <input type="date" id="availableFrom" name="availableFrom" required>
+              </div>
+
+              <div class="form-group">
+                <label for="leaseType">Lease Type <span class="required">*</span></label>
+                <select id="leaseType" name="leaseType" required>
+                  <option value="">-- Select Lease Type --</option>
+                  <option value="6-months">6 Months</option>
+                  <option value="12-months">12 Months</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- PG Owner/Contact Person Information -->
+            <div class="form-section-title">Owner/Contact Information</div>
+
+            <div class="form-group">
+              <label for="contactName">Contact Person Name <span class="required">*</span></label>
+              <input type="text" id="contactName" name="contactName" placeholder="Enter full name of owner/manager" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="mobileNumber">Mobile Number <span class="required">*</span></label>
+                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+              </div>
+
+              <div class="form-group">
+                <label for="alternateNumber">Alternate Mobile Number</label>
+                <input type="tel" id="alternateNumber" name="alternateNumber" placeholder="Enter alternate number" pattern="[0-9]{10}">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter email address" required>
+              </div>
+
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp Number <span class="required">*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" pattern="[0-9]{10}" required>
+              </div>
+            </div>
+
+            <!-- Amenities & Facilities -->
+            <div class="form-section-title">Amenities & Facilities</div>
+
+            <div class="form-group">
+              <label>Amenities Provided (Select all that apply)</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <div>
+                  <input type="checkbox" id="wifi" name="amenities" value="WiFi">
+                  <label for="wifi" style="display: inline; font-weight: 400; margin-left: 5px;">High-Speed WiFi</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="ac" name="amenities" value="AC">
+                  <label for="ac" style="display: inline; font-weight: 400; margin-left: 5px;">Air Conditioning</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="studyroom" name="amenities" value="Study Room">
+                  <label for="studyroom" style="display: inline; font-weight: 400; margin-left: 5px;">Study Room</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="laundry" name="amenities" value="Laundry">
+                  <label for="laundry" style="display: inline; font-weight: 400; margin-left: 5px;">Laundry Service</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="commonarea" name="amenities" value="Common Area">
+                  <label for="commonarea" style="display: inline; font-weight: 400; margin-left: 5px;">Common Area</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="parking" name="amenities" value="Parking">
+                  <label for="parking" style="display: inline; font-weight: 400; margin-left: 5px;">Parking</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="security" name="amenities" value="Security">
+                  <label for="security" style="display: inline; font-weight: 400; margin-left: 5px;">24/7 Security</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="meals" name="amenities" value="Meals">
+                  <label for="meals" style="display: inline; font-weight: 400; margin-left: 5px;">Meals Provided</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="form-section-title">Additional Information</div>
+
+            <div class="form-group">
+              <label for="description">Property Description</label>
+              <textarea id="description" name="description" placeholder="Describe your PG in detail, including room size, condition, nearby amenities, etc."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="rules">Rules & Policies</label>
+              <textarea id="rules" name="rules" placeholder="Mention any specific rules, restrictions, or policies for residents"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                <span style="font-weight: 400; margin-left: 5px;">I agree to the terms and conditions and confirm that all information is accurate</span>
+              </label>
+            </div>
+
+            <!-- Submit Buttons -->
+            <button type="submit" class="submit-btn">Submit PG Listing</button>
+            <button type="reset" class="reset-btn">Clear Form</button>
+
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // Form validation and submission
+    document.getElementById('pgListingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('PG Listing submitted successfully! We will verify and publish it shortly.');
+      // Here you would typically send the form data to your backend
+      this.reset();
+    });
+  </script>
+
+</body>
+
+</html>
