@@ -1,57 +1,73 @@
-<div align="center">
-  
-  ![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/homeverse)
-  ![GitHub stars](https://img.shields.io/github/stars/codewithsadee/homeverse?style=social)
-  ![GitHub forks](https://img.shields.io/github/forks/codewithsadee/homeverse?style=social)
-[![Twitter Follow](https://img.shields.io/twitter/follow/codewithsadee_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
-  [![YouTube Video Views](https://img.shields.io/youtube/views/6HZ4nZmU_pE?style=social)](https://youtu.be/6HZ4nZmU_pE)
+# Welcome to your Lovable project
 
-  <br />
-  <br />
-  
-  <img src="./readme-images/project-logo.png" />
+## Project info
 
-  <h2 align="center">Homeverse - Real estate website</h2>
+**URL**: https://lovable.dev/projects/58bf85d9-c8c2-4e8e-b2d5-699ec70f9edf
 
-  Homeverse is fully responsive Real estate website, <br />Responsive for all devices, built using HTML, CSS, and JavaScript.
+## How can I edit this code?
 
-  <a href="https://codewithsadee.github.io/homeverse/"><strong>➥ Live Demo</strong></a>
+There are several ways of editing your application.
 
-</div>
+**Use Lovable**
 
-<br />
+Simply visit the [Lovable Project](https://lovable.dev/projects/58bf85d9-c8c2-4e8e-b2d5-699ec70f9edf) and start prompting.
 
-### Demo Screeshots
+Changes made via Lovable will be committed automatically to this repo.
 
-![homeverse Desktop Demo](./readme-images/desktop.png "Desktop Demo")
-![homeverse Mobile Demo](./readme-images/mobile.png "Mobile Demo")
+**Use your preferred IDE**
 
-### Prerequisites
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-Before you begin, ensure you have met the following requirements:
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-* [Git](https://git-scm.com/downloads "Download Git") must be installed on your operating system.
+Follow these steps:
 
-### Run Locally
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-To run **Homeverse** locally, run this command on your git bash:
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-Linux and macOS:
+# Step 3: Install the necessary dependencies.
+npm i
 
-```bash
-sudo git clone https://github.com/codewithsadee/homeverse.git
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
 ```
 
-Windows:
+**Edit a file directly in GitHub**
 
-```bash
-git clone https://github.com/codewithsadee/homeverse.git
-```
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-### Contact
+**Use GitHub Codespaces**
 
-If you want to contact with me you can reach me at [Twitter](https://www.twitter.com/codewithsadee).
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-### License
+## What technologies are used for this project?
 
-This project is **free to use** and does not contains any license.
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/58bf85d9-c8c2-4e8e-b2d5-699ec70f9edf) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

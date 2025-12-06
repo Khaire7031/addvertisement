@@ -1,0 +1,189 @@
+[
+    {
+        "id": "1",
+        "title": "Sunshine PG for Girls",
+        "city": "Bangalore",
+        "area": "Koramangala",
+        "rent": 8500,
+        "roomType": "double",
+        "occupancy": "girls",
+        "verified": true,
+        "image": "/images/pg1.jpg",
+        "images": [
+            "/images/pg1.jpg",
+            "/images/pg1-2.jpg",
+            "/images/pg1-3.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "laundry",
+            "ac",
+            "parking",
+            "security"
+        ],
+        "description": "Well-maintained PG with homely atmosphere. Located in prime Koramangala area with easy access to IT parks and metro. Includes 3 meals daily, wifi, and 24/7 security.",
+        "owner": "Priya Sharma",
+        "contact": "+91 98765 43210",
+        "whatsapp": "+91 98765 43210",
+        "email": "priya@sunshineacc.com",
+        "mapLink": "https://maps.google.com/?q=Koramangala,Bangalore",
+        "latitude": 12.9352,
+        "longitude": 77.6245
+    },
+    {
+        "id": "2",
+        "title": "Urban Nest Boys Hostel",
+        "city": "Pune",
+        "area": "Hinjewadi",
+        "rent": 7000,
+        "roomType": "triple",
+        "occupancy": "boys",
+        "verified": true,
+        "image": "/images/pg2.jpg",
+        "images": [
+            "/images/pg2.jpg",
+            "/images/pg2-2.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "laundry",
+            "gym",
+            "parking"
+        ],
+        "description": "Modern PG near IT hub with excellent amenities. Close to major tech companies and shopping centers. Includes breakfast and dinner, high-speed wifi.",
+        "owner": "Rahul Desai",
+        "contact": "+91 98123 45678",
+        "whatsapp": "+91 98123 45678",
+        "email": "contact@urbannestpg.com",
+        "mapLink": "https://maps.google.com/?q=Hinjewadi,Pune",
+        "latitude": 18.5912,
+        "longitude": 73.7387
+    },
+    {
+        "id": "3",
+        "title": "Green Valley Unisex PG",
+        "city": "Hyderabad",
+        "area": "Gachibowli",
+        "rent": 9500,
+        "roomType": "single",
+        "occupancy": "unisex",
+        "verified": true,
+        "image": "/images/pg3.jpg",
+        "images": [
+            "/images/pg3.jpg",
+            "/images/pg3-2.jpg",
+            "/images/pg3-3.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "laundry",
+            "ac",
+            "furnished",
+            "security",
+            "parking"
+        ],
+        "description": "Premium single rooms with attached bathrooms. Fully furnished with modern amenities. Located in the heart of tech corridor with easy access to restaurants and malls.",
+        "owner": "Amit Kumar",
+        "contact": "+91 99876 54321",
+        "whatsapp": "+91 99876 54321",
+        "email": "greenvalley@pgservices.com",
+        "mapLink": "https://maps.google.com/?q=Gachibowli,Hyderabad",
+        "latitude": 17.4401,
+        "longitude": 78.3489
+    },
+    {
+        "id": "4",
+        "title": "Lakshmi Ladies PG",
+        "city": "Chennai",
+        "area": "Velachery",
+        "rent": 6500,
+        "roomType": "double",
+        "occupancy": "girls",
+        "verified": false,
+        "image": "/images/pg4.jpg",
+        "images": [
+            "/images/pg4.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "laundry",
+            "security"
+        ],
+        "description": "Safe and comfortable PG for working women and students. Close to metro station and bus stops. Homely food provided. Strict security measures.",
+        "owner": "Lakshmi Natarajan",
+        "contact": "+91 97654 32109",
+        "whatsapp": "+91 97654 32109",
+        "email": "lakshmipg@gmail.com",
+        "mapLink": "https://maps.google.com/?q=Velachery,Chennai",
+        "latitude": 12.9815,
+        "longitude": 80.2176
+    },
+    {
+        "id": "5",
+        "title": "Royal Residency Boys PG",
+        "city": "Delhi",
+        "area": "Laxmi Nagar",
+        "rent": 8000,
+        "roomType": "triple",
+        "occupancy": "boys",
+        "verified": true,
+        "image": "/images/pg5.jpg",
+        "images": [
+            "/images/pg5.jpg",
+            "/images/pg5-2.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "furnished",
+            "security",
+            "parking"
+        ],
+        "description": "Spacious rooms with good ventilation. Near metro and educational institutions. Provides 2 meals daily with vegetarian and non-vegetarian options.",
+        "owner": "Suresh Singh",
+        "contact": "+91 98111 22334",
+        "whatsapp": "+91 98111 22334",
+        "email": "royalresidency@outlook.com",
+        "mapLink": "https://maps.google.com/?q=Laxmi Nagar,Delhi",
+        "latitude": 28.6304,
+        "longitude": 77.2773
+    },
+    {
+        "id": "6",
+        "title": "Modern Living Co-living",
+        "city": "Mumbai",
+        "area": "Andheri East",
+        "rent": 12000,
+        "roomType": "single",
+        "occupancy": "unisex",
+        "verified": true,
+        "image": "/images/pg6.jpg",
+        "images": [
+            "/images/pg6.jpg",
+            "/images/pg6-2.jpg",
+            "/images/pg6-3.jpg"
+        ],
+        "amenities": [
+            "wifi",
+            "meals",
+            "laundry",
+            "ac",
+            "furnished",
+            "gym",
+            "security",
+            "parking"
+        ],
+        "description": "Premium co-living space with hotel-like amenities. Each room has attached bathroom, AC, and modern furniture. Rooftop lounge, gym, and workspace available. Perfect for working professionals.",
+        "owner": "Modern Living Spaces Pvt Ltd",
+        "contact": "+91 99201 88765",
+        "whatsapp": "+91 99201 88765",
+        "email": "hello@modernliving.in",
+        "mapLink": "https://maps.google.com/?q=Andheri East,Mumbai",
+        "latitude": 19.1136,
+        "longitude": 72.8697
+    }
+]
