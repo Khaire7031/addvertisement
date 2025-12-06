@@ -1,78 +1,213 @@
-import { Home, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Home, Mail, Phone, Facebook, Twitter, Instagram, Linkedin, ArrowRight, MapPin } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { Button } from "./ui/button";
 
 const Footer = () => {
     return (
-        <footer className="bg-secondary border-t border-border mt-auto">
-            <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {/* Brand */}
-                    <div>
-                        <div className="flex items-center gap-2 mb-4">
-                            <Home className="h-6 w-6 text-primary" />
-                            <span className="text-xl font-heading font-bold">PG Finder</span>
+        <footer className="footer">
+
+            <section className="cta">
+                <div className="container">
+
+                    <div className="cta-card">
+                        <div className="card-content">
+                            <h2 className="h2 card-title">Looking for a dream PG?</h2>
+
+                            <p className="card-text">We can help you realize your dream of a new PG</p>
                         </div>
-                        <p className="text-muted-foreground text-sm">
-                            Find your perfect PG accommodation across India. Safe, verified, and trusted by thousands of students and professionals.
-                        </p>
+
+                        <NavLink to="/list-your-pg">
+                            <button className="btn cta-btn">
+                                <span>List Your PG Now</span>
+
+                                <ArrowRight className="ml-2" />
+                            </button>
+                        </NavLink>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <h3 className="font-heading font-semibold mb-4">Quick Links</h3>
-                        <div className="flex flex-col gap-2">
-                            <NavLink to="/" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                                Home
-                            </NavLink>
-                            <NavLink to="/listings" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                                Find PG
-                            </NavLink>
-                            <NavLink to="/list-your-pg" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                                List Your PG
-                            </NavLink>
-                            <NavLink to="/about" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                                About Us
-                            </NavLink>
-                        </div>
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <h3 className="font-heading font-semibold mb-4">Contact Us</h3>
-                        <div className="flex flex-col gap-3">
-                            <a href="mailto:info@pgfinder.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm">
-                                <Mail className="h-4 w-4" />
-                                info@pgfinder.com
-                            </a>
-                            <a href="tel:+919876543210" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm">
-                                <Phone className="h-4 w-4" />
-                                +91 98765 43210
-                            </a>
-                        </div>
-                    </div>
-
-                    {/* Social Media */}
-                    <div>
-                        <h3 className="font-heading font-semibold mb-4">Follow Us</h3>
-                        <div className="flex gap-4">
-                            <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
-                                <Facebook className="h-5 w-5" />
-                            </a>
-                            <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
-                                <Twitter className="h-5 w-5" />
-                            </a>
-                            <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                                <Instagram className="h-5 w-5" />
-                            </a>
-                            <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
-                                <Linkedin className="h-5 w-5" />
-                            </a>
-                        </div>
-                    </div>
                 </div>
+            </section>
+            <div className="footer-top">
+                <div className="container">
 
-                <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-                    <p>&copy; {new Date().getFullYear()} PG Finder. All rights reserved.</p>
+                    <div className="footer-brand">
+
+                        <a href="#" className="logo">
+                            <span className="logo-text">Add Avertisement</span>
+                        </a>
+
+                        <p className="section-text">
+                            Discover affordable and comfortable PG accommodations with all modern amenities. Find verified listings from trusted landlords with easy booking and transparent pricing.
+                        </p>
+
+                        <ul className="contact-list">
+
+                            <li>
+                                <a href="#" className="contact-link">
+                                    <MapPin className="inline-block mr-2" />
+
+                                    <address>Viman Nagar, Pune, India</address>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="tel:+0123456789" className="contact-link">
+                                    <Phone className="inline-block mr-2" />
+
+                                    <span>9689818674</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="mailto:pranavkhaire28@gmail.com" className="contact-link">
+                                    <Mail className="inline-block mr-2" />
+
+                                    <span>pranavkhaire28@gmail.com</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <ul className="social-list">
+
+                            <li>
+                                <a href="#" className="social-link">
+                                    <Facebook />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="social-link">
+                                    <Twitter />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="social-link">
+                                    <Linkedin />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="social-link">
+                                    <Instagram />
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div className="footer-link-box">
+
+                        <ul className="footer-list">
+
+                            <li>
+                                <p className="footer-list-title">Company</p>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">About</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Blog</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">All Products</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Locations Map</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">FAQ</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Contact us</a>
+                            </li>
+
+                        </ul>
+
+                        <ul className="footer-list">
+
+                            <li>
+                                <p className="footer-list-title">Services</p>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Order tracking</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Wish List</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Login</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">My account</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Terms & Conditions</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Promotional Offers</a>
+                            </li>
+
+                        </ul>
+
+                        <ul className="footer-list">
+
+                            <li>
+                                <p className="footer-list-title">Customer Care</p>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Login</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">My account</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Wish List</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Order tracking</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">FAQ</a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="footer-link">Contact us</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div className="footer-bottom">
+                <div className="container">
+
+                    <p className="copyright">
+                        &copy; 2025 <a href="#">codewithpranav</a>. All Rights Reserved
+                    </p>
+
                 </div>
             </div>
         </footer>

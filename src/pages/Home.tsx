@@ -4,6 +4,7 @@ import { NavLink } from "@/components/NavLink";
 import ListingCard from "@/components/ListingCard";
 import listingsData from "@/data/listings.json";
 import heroImage from "@/assets/hero-bg.jpg";
+import About from "./About";
 
 const Home = () => {
     const featuredListings = listingsData.slice(0, 3);
@@ -29,10 +30,37 @@ const Home = () => {
                     </p>
                     <NavLink to="/listings">
                         <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-                            Browse All PGs
+                            View All Advertisement's
                             <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                     </NavLink>
+                </div>
+            </section>
+
+            {/* Featured Listings */}
+            <section className="py-16">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Featured PGs</h2>
+                        <p className="text-muted-foreground text-lg">
+                            Handpicked accommodations from across major cities
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        {featuredListings.map((listing) => (
+                            <ListingCard key={listing.id} listing={listing} />
+                        ))}
+                    </div>
+
+                    <div className="text-center">
+                        <NavLink to="/listings">
+                            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                                View All Advertisement's
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </Button>
+                        </NavLink>
+                    </div>
                 </div>
             </section>
 
@@ -71,51 +99,8 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Featured Listings */}
-            <section className="py-16">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Featured PGs</h2>
-                        <p className="text-muted-foreground text-lg">
-                            Handpicked accommodations from across major cities
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {featuredListings.map((listing) => (
-                            <ListingCard key={listing.id} listing={listing} />
-                        ))}
-                    </div>
-
-                    <div className="text-center">
-                        <NavLink to="/listings">
-                            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                                View All PGs
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
-                        </NavLink>
-                    </div>
-                </div>
-            </section>
-
             {/* CTA Section */}
-            <section className="py-16 bg-gradient-to-r from-primary to-accent text-primary-foreground">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-                        Own a PG? List it with us!
-                    </h2>
-                    <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-                        Reach thousands of students and professionals looking for accommodation.
-                        List your PG today and get verified quickly.
-                    </p>
-                    <NavLink to="/list-your-pg">
-                        <Button size="lg" variant="secondary" className="font-semibold text-lg px-8">
-                            List Your PG Now
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                    </NavLink>
-                </div>
-            </section>
+            <About />
         </div>
     );
 };

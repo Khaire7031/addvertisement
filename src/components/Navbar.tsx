@@ -59,7 +59,7 @@ const Navbar = () => {
                         </NavLink>
                         <NavLink to="/list-your-pg">
                             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
-                                List Your PG
+                                Post Your Ad
                             </Button>
                         </NavLink>
 
@@ -105,7 +105,7 @@ const Navbar = () => {
                                     </DropdownMenu>
                                 ) : (
                                     <NavLink to="/auth">
-                                        <Button variant="outline">Login</Button>
+                                        {/* <Button variant="outline">Cart</Button> */}
                                     </NavLink>
                                 )}
                             </>
@@ -167,7 +167,7 @@ const Navbar = () => {
                                     List Your PG
                                 </Button>
                             </NavLink>
-                            {!loading && (
+                            {/* {!loading && (
                                 <>
                                     {user ? (
                                         <Button
@@ -184,7 +184,7 @@ const Navbar = () => {
                                         </NavLink>
                                     )}
                                 </>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 )}

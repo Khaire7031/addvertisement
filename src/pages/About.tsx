@@ -110,30 +110,6 @@ const About = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Stats */}
-            <section className="py-16 bg-gradient-to-r from-primary to-accent text-primary-foreground">
-                <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-                        <div>
-                            <div className="text-4xl font-heading font-bold mb-2">1000+</div>
-                            <div className="text-lg opacity-90">Listed PGs</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-heading font-bold mb-2">50+</div>
-                            <div className="text-lg opacity-90">Cities Covered</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-heading font-bold mb-2">10K+</div>
-                            <div className="text-lg opacity-90">Happy Residents</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-heading font-bold mb-2">98%</div>
-                            <div className="text-lg opacity-90">Satisfaction Rate</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
