@@ -1,10 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListingCard from "@/components/ListingCard";
 import SearchFilters from "@/components/SearchFilters";
 import ListingsMap from "@/components/ListingsMap";
+import PGData from "@/data/PGData.json";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, Map } from "lucide-react";
 import listingsData from "@/data/listings.json";
+import { getGoogleSheetData } from "@/utility/sendToGoogleSheet";
+
+interface PostData {
+    id?: string;
+    pgName: string;
+    ownerName: string;
+    contactPerson: string;
+    mobile: string;
+    whatsapp: string;
+    email: string;
+    address: string;
+    category: string;
+    numberOfRooms: string;
+    deposit: string;
+    rentPerPerson: string;
+    roomType: string;
+    occupancy: string;
+    description: string;
+    amenities: string;
+    images: string;
+    googleMapLink: string;
+}
 
 const Listings = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +38,30 @@ const Listings = () => {
     const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
 
-    const filteredListings = listingsData.filter((listing) => {
+    const [pgData, setPgData] = useState<PostData[]>([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                // const data = await getGoogleSheetData();
+                const data: PostData[] = PGData;
+                if (!data) {
+                    console.warn("No sheet values:", data);
+                    return;
+                }
+                console.log("Google Sheet Data:", data);
+                console.log("headers:", Object.keys(data[0] || {}));
+                console.log("first row:", data[0]);
+                setPgData(data);
+            } catch (err) {
+                console.error("fetch error", err);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    const filteredListings = listingsData ? listingsData.filter((listing) => {
         // Search term filter
         const matchesSearch =
             searchTerm === "" ||
@@ -50,7 +96,8 @@ const Listings = () => {
             matchesOccupancy &&
             matchesAmenities
         );
-    });
+    }) : [];
+
 
     return (
         <div className="min-h-screen bg-background py-8">
@@ -110,10 +157,10 @@ const Listings = () => {
                         </div>
 
                         {viewMode === "grid" ? (
-                            filteredListings.length > 0 ? (
+                            pgData != null ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                                    {filteredListings.map((listing) => (
-                                        <ListingCard key={listing.id} listing={listing} />
+                                    {pgData.map((listing, index) => (
+                                        <ListingCard key={index} listing={listing} />
                                     ))}
                                 </div>
                             ) : (

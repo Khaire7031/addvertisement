@@ -9,8 +9,11 @@ import About from "./About";
 const Home = () => {
     const featuredListings = listingsData.slice(0, 3);
 
+
+
     return (
         <div className="min-h-screen">
+            {/* <PGCarousel /> */}
             {/* Hero Section */}
             <section
                 className="relative h-[600px] flex items-center justify-center text-center"

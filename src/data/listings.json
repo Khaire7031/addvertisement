@@ -187,7 +187,7 @@
         "longitude": 72.8697
     },
     {
-        "id": "2",
+        "id": "7",
         "title": "Urban Nest Boys Hostel",
         "city": "Pune",
         "area": "Hinjewadi",
@@ -217,7 +217,7 @@
         "longitude": 73.7387
     },
     {
-        "id": "3",
+        "id": "8",
         "title": "Green Valley Unisex PG",
         "city": "Hyderabad",
         "area": "Gachibowli",
@@ -250,7 +250,7 @@
         "longitude": 78.3489
     },
     {
-        "id": "4",
+        "id": "9",
         "title": "Lakshmi Ladies PG",
         "city": "Chennai",
         "area": "Velachery",
@@ -278,7 +278,7 @@
         "longitude": 80.2176
     },
     {
-        "id": "5",
+        "id": "10",
         "title": "Royal Residency Boys PG",
         "city": "Delhi",
         "area": "Laxmi Nagar",
@@ -308,7 +308,7 @@
         "longitude": 77.2773
     },
     {
-        "id": "6",
+        "id": "11",
         "title": "Modern Living Co-living",
         "city": "Mumbai",
         "area": "Andheri East",
@@ -342,7 +342,7 @@
         "longitude": 72.8697
     },
     {
-        "id": "7",
+        "id": "12",
         "title": "Modern Living Co-living",
         "city": "Mumbai",
         "area": "Andheri East",

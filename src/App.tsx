@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Home from "./pages/Home";
 import Listings from "./pages/Listings";
 import ListingDetail from "./pages/ListingDetail";
-import ListYourPG from "./pages/ListYourPG";
+import ListYourPG from "./pages/AddYourAdd";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";

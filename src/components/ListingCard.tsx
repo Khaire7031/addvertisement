@@ -5,6 +5,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import FavoriteButton from "@/components/FavoriteButton";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useEffect, useState } from "react";
+import { Carousel } from '@mantine/carousel';
 
 interface Listing {
     id: string;
@@ -19,13 +21,55 @@ interface Listing {
     amenities: string[];
 }
 
+interface PostData {
+    id?: string;
+    pgName: string;
+    ownerName: string;
+    contactPerson: string;
+    mobile: string;
+    whatsapp: string;
+    email: string;
+    address: string;
+    category: string;
+    numberOfRooms: string;
+    deposit: string;
+    rentPerPerson: string;
+    roomType: string;
+    occupancy: string;
+    description: string;
+    amenities: string;
+    images: string;
+    googleMapLink: string;
+}
+
+
 interface ListingCardProps {
-    listing: Listing;
+    listing: PostData;
     showFavoriteButton?: boolean;
 }
 
 const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) => {
     const { isFavorite, toggleFavorite } = useFavorites();
+    const [verified, setVerified] = useState(true);
+    const [images, setImages] = useState<string[]>([]);
+    const [amenities, setAmenities] = useState<string[]>([]);
+
+    useEffect(() => {
+        // console.log("Listing:", listing.id, "Images type:", typeof listing.images, "Value:", listing.images);
+        if (typeof listing.images === 'string') {
+            setImages(listing.images.split(","));
+        } else if (Array.isArray(listing.images)) {
+            setImages(listing.images);
+        } else {
+            setImages([]);
+        }
+
+        if (typeof listing.amenities === 'string') {
+            setAmenities(listing.amenities.split(","));
+        } else {
+            setAmenities([]);
+        }
+    }, [listing]);
 
     const roomTypeLabel = {
         single: "Single",
@@ -42,12 +86,51 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
     return (
         <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
             <div className="relative overflow-hidden">
-                <img
-                    src={listing.image}
-                    alt={listing.title}
+                {/* <img
+                    src={listing.images.split(",")[0]}
+                    alt={listing.pgName}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {listing.verified && (
+                /> */}
+                <Carousel
+                    withIndicators
+                    height={200}
+                    slideSize="100%"
+                    slideGap="md"
+                >
+                    <Carousel.Slide>
+                        <img
+                            src="https://content.jdmagicbox.com/v2/comp/bangalore/g2/080pxx80.xx80.200104135109.k2g2/catalogue/srm-pg-chamarajpet-bangalore-paying-guest-accommodations-for-men-qjfakk97b8.jpg"
+                            alt={listing.pgName}
+                            className="w-full h-full object-cover"
+                        />
+                    </Carousel.Slide>
+                    <Carousel.Slide>
+                        <img
+                            src="https://content.jdmagicbox.com/v2/comp/delhi/e3/011pxx11.xx11.160928133111.h2e3/catalogue/vardhman-pg-karol-bagh-delhi-paying-guest-accommodations-for-women-rww7ofmbr9.jpg"
+                            alt={listing.pgName}
+                            className="w-full h-full object-cover"
+                        />
+                    </Carousel.Slide>
+                    <Carousel.Slide>
+                        <img
+                            src="https://alexandro.in/image/pune/yourspace-vimannagar/4.jpg"
+                            alt={listing.pgName}
+                            className="w-full h-full object-cover"
+                        />
+                    </Carousel.Slide>
+
+                    {images.slice(3).map((image) => (
+                        <Carousel.Slide key={image}>
+                            <img
+                                src={image}
+                                alt={listing.pgName}
+                                className="w-full h-full object-cover"
+                            />
+                        </Carousel.Slide>
+                    ))}
+                </Carousel>
+
+                {verified && (
                     <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-2 py-1 rounded-md flex items-center gap-1 text-xs font-semibold">
                         <CheckCircle2 className="h-3 w-3" />
                         Verified
@@ -65,12 +148,12 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
             </div>
 
             <CardContent className="p-4">
-                <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-1">{listing.title}</h3>
+                <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-1">{listing.pgName}</h3>
 
-                <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
+                {/* <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
                     <MapPin className="h-4 w-4" />
                     <span>{listing.area}, {listing.city}</span>
-                </div>
+                </div> */}
 
                 <div className="flex items-center gap-2 mb-3">
                     <Badge variant="secondary" className="text-xs">
@@ -82,21 +165,21 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
                 </div>
 
                 <div className="flex flex-wrap gap-1 mb-3">
-                    {listing.amenities.slice(0, 3).map((amenity) => (
+                    {amenities.slice(0, 3).map((amenity) => (
                         <span key={amenity} className="text-xs bg-muted px-2 py-1 rounded">
                             {amenity}
                         </span>
                     ))}
-                    {listing.amenities.length > 3 && (
+                    {amenities.length > 3 && (
                         <span className="text-xs bg-muted px-2 py-1 rounded">
-                            +{listing.amenities.length - 3} more
+                            +{amenities.length - 3} more
                         </span>
                     )}
                 </div>
 
                 <div className="flex items-center gap-1 text-primary font-heading font-bold text-xl">
                     <IndianRupee className="h-5 w-5" />
-                    {listing.rent.toLocaleString('en-IN')}
+                    {Number(listing.rentPerPerson).toLocaleString('en-IN')}
                     <span className="text-sm text-muted-foreground font-normal">/month</span>
                 </div>
             </CardContent>
