@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LayoutGrid, Map } from "lucide-react";
 import listingsData from "@/data/listings.json";
 import { getGoogleSheetData } from "@/utility/sendToGoogleSheet";
+import { usePGData } from "@/context/PGContext";
 
 interface PostData {
     id?: string;
@@ -39,20 +40,23 @@ const Listings = () => {
     const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
 
     const [pgData, setPgData] = useState<PostData[]>([]);
+    const { pgList, loading } = usePGData();
 
     useEffect(() => {
         async function fetchData() {
             try {
-                // const data = await getGoogleSheetData();
-                const data: PostData[] = PGData;
-                if (!data) {
-                    console.warn("No sheet values:", data);
+                if (loading) {
+                    console.log("Data is still loading...");
                     return;
                 }
-                console.log("Google Sheet Data:", data);
-                console.log("headers:", Object.keys(data[0] || {}));
-                console.log("first row:", data[0]);
-                setPgData(data);
+                if (!pgList) {
+                    console.warn("No sheet values:", pgList);
+                    return;
+                }
+                console.log("Google Sheet Data:", pgList);
+                console.log("headers:", Object.keys(pgList[0] || {}));
+                console.log("first row:", pgList[0]);
+                setPgData(pgList);
             } catch (err) {
                 console.error("fetch error", err);
             }
