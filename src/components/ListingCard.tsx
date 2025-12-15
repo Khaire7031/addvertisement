@@ -98,7 +98,7 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
                     slideGap="md"
                 >
                     {/* This are the sample images util issue is fixed */}
-                    <Carousel.Slide>
+                    {/* <Carousel.Slide>
                         <img
                             src="https://content.jdmagicbox.com/v2/comp/bangalore/g2/080pxx80.xx80.200104135109.k2g2/catalogue/srm-pg-chamarajpet-bangalore-paying-guest-accommodations-for-men-qjfakk97b8.jpg"
                             alt={listing.pgName}
@@ -118,9 +118,9 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
                             alt={listing.pgName}
                             className="w-full h-full object-cover"
                         />
-                    </Carousel.Slide>
+                    </Carousel.Slide> */}
 
-                    {images.slice(3).map((image) => (
+                    {images.slice(7).map((image) => (
                         <Carousel.Slide key={image}>
                             <img
                                 src={image}

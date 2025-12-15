@@ -7,6 +7,7 @@ export async function sendToGoogleSheet(formData: any) {
     const body = {
         values: [
             [
+                formData.id,
                 formData.pgName,
                 formData.ownerName,
                 formData.contactPerson,
@@ -29,7 +30,7 @@ export async function sendToGoogleSheet(formData: any) {
                 formData.lightBillIncluded,
                 new Date().toISOString(), // Created At
                 // google map link
-                formData.imagesIdss
+                formData.imagesIds
             ]
         ]
     };
@@ -60,6 +61,7 @@ export async function getGoogleSheetData() {
 
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:Z`;
 
+    console.log("Fetching Google Sheet Data from URL:", token ? url : "No token provided");
     try {
         const res = await fetch(url, {
             method: "GET",
@@ -70,6 +72,7 @@ export async function getGoogleSheetData() {
         });
 
         const data = await res.json();
+        console.log("Raw Sheet Data:", data);
 
         if (!data.values || data.values.length === 0) return [];
 

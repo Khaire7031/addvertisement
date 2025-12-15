@@ -15,10 +15,11 @@ import { sendToGoogleSheet } from "@/utility/sendToGoogleSheet";
 
 const categories = ["PG", "1RK", "1BHK", "2BHK", "3BHK", "Apartment"];
 const roomTypes = ["single", "double", "triple"];
-const occupancyTypes = ["boys", "girls", "unisex"];
+const occupancyTypes = ["boys", "girls", "both"];
 const amenitiesList = ["wifi", "meals", "laundry", "ac", "furnished", "gym", "security", "parking"];
 
 interface FormData {
+    id: string,
     pgName: string;
     ownerName: string;
     contactPerson: string;
@@ -44,6 +45,7 @@ interface FormData {
 const AddYourAdd = () => {
 
     const [formData, setFormData] = useState<FormData>({
+        id: "",
         pgName: "",
         ownerName: "",
         contactPerson: "",
@@ -89,6 +91,7 @@ const AddYourAdd = () => {
 
         // Reset form
         setFormData({
+            id: "",
             pgName: "",
             ownerName: "",
             contactPerson: "",

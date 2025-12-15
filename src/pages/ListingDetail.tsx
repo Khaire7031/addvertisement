@@ -1,21 +1,24 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { MapPin, IndianRupee, Mail, Phone, MessageSquare, ArrowLeft, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { Container, Grid, Card, Text, Title, Button, Badge, Group, Image, Divider, TextInput, Textarea, Stack, Anchor } from "@mantine/core";
+
+import { IconMapPin, IconArrowLeft, IconPhone, IconMail, IconBrandWhatsapp, IconCheck } from "@tabler/icons-react";
+
 import { useState } from "react";
-import listingsData from "@/data/listings.json";
+import { toast } from "sonner";
+import { usePGData } from "@/context/PGContext";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewsList from "@/components/ReviewsList";
+import { Carousel } from "@mantine/carousel";
+
 
 const ListingDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const listing = listingsData.find((l) => l.id === id);
+    const { pgList, loading } = usePGData();
+
+    const listing = pgList.find((l: any) => l.id === id);
+
+    console.log("Listing Detail - Loaded listing:", listing);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -23,250 +26,273 @@ const ListingDetail = () => {
         phone: "",
         message: "",
     });
-    const [reviewRefresh, setReviewRefresh] = useState(0);
-    const [userReview, setUserReview] = useState<{ id: string; rating: number; review_text: string } | null>(null);
 
-    if (!listing) {
+    const [reviewRefresh, setReviewRefresh] = useState(0);
+    const [userReview, setUserReview] = useState<any>(null);
+
+    if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                    <h2 className="font-heading text-2xl font-bold mb-4">Listing not found</h2>
-                    <Button onClick={() => navigate("/listings")}>Back to Listings</Button>
-                </div>
-            </div>
+            <Container size="md" py="xl">
+                <Text>Loading...</Text>
+            </Container>
         );
     }
 
-    const roomTypeLabel = {
+    if (!listing) {
+        return (
+            <Container size="md" py="xl">
+                <Title order={3}>Listing not found</Title>
+                <Button mt="md" onClick={() => navigate("/listings")}>
+                    Back to Listings
+                </Button>
+            </Container>
+        );
+    }
+
+    /* ---------------- NORMALIZATION ---------------- */
+    const images = listing.images
+        ? listing.images.split(",").map((i: string) => i.trim())
+        : [];
+
+    const amenities = listing.amenities
+        ? listing.amenities.split(",").map((a: string) => a.trim())
+        : [];
+
+    const roomTypeLabel: any = {
         single: "Single",
         double: "Double",
         triple: "Triple",
-    }[listing.roomType];
+        shared: "Shared",
+    };
 
-    const occupancyLabel = {
+    const occupancyLabel: any = {
         boys: "Boys Only",
         girls: "Girls Only",
         unisex: "Co-living",
-    }[listing.occupancy];
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        toast.success("Inquiry sent successfully! The owner will contact you soon.");
+        toast.success("Inquiry sent successfully!");
         setFormData({ name: "", email: "", phone: "", message: "" });
     };
 
     const handleWhatsApp = () => {
-        const message = encodeURIComponent(
-            `Hi, I'm interested in ${listing.title} in ${listing.area}, ${listing.city}. Can you provide more details?`
+        const msg = encodeURIComponent(
+            `Hi, I'm interested in ${listing.pgName}. Please share more details.`
         );
-        window.open(`https://wa.me/${listing.whatsapp.replace(/\D/g, "")}?text=${message}`, "_blank");
+        window.open(
+            `https://wa.me/${listing.whatsapp.replace(/\D/g, "")}?text=${msg}`,
+            "_blank"
+        );
     };
 
     return (
-        <div className="min-h-screen bg-background py-8">
-            <div className="container mx-auto px-4">
-                <Button
-                    variant="ghost"
-                    onClick={() => navigate("/listings")}
-                    className="mb-6"
-                >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Listings
-                </Button>
+        <Container size="xl" py="xl">
+            <Button
+                variant="subtle"
+                leftSection={<IconArrowLeft size={16} />}
+                mb="lg"
+                onClick={() => navigate("/listings")}
+            >
+                Back to Listings
+            </Button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-6">
-                        {/* Images */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {listing.images.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={image}
-                                    alt={`${listing.title} - ${index + 1}`}
-                                    className="w-full h-64 object-cover rounded-lg shadow-md"
-                                />
+            <Grid gutter="xl">
+                {/* LEFT CONTENT */}
+                <Grid.Col span={{ base: 12, md: 8 }}>
+                    {/* IMAGES */}
+                    <Card radius="lg" shadow="sm" p={0} style={{ overflow: "hidden" }}>
+                        <Carousel
+                            withIndicators
+                            // height={500}
+                            slideSize="100%"
+                            slideGap={0}
+                        // align="center"
+                        >
+                            {images.map((img: string, idx: number) => (
+                                <Carousel.Slide key={idx}>
+                                    <Image
+                                        src={img}
+                                        height={420}
+                                        fit="cover"
+                                        alt={`${listing.pgName} - ${idx + 1}`}
+                                    />
+                                </Carousel.Slide>
                             ))}
-                        </div>
+                        </Carousel>
+                    </Card>
 
-                        {/* Details */}
-                        <Card>
-                            <CardHeader>
-                                <div className="flex items-start justify-between">
-                                    <div>
-                                        <CardTitle className="font-heading text-2xl mb-2">{listing.title}</CardTitle>
-                                        <div className="flex items-center gap-2 text-muted-foreground">
-                                            <MapPin className="h-4 w-4" />
-                                            <span>{listing.area}, {listing.city}</span>
-                                        </div>
-                                    </div>
-                                    {listing.verified && (
-                                        <Badge className="bg-primary text-primary-foreground">
-                                            <CheckCircle2 className="h-3 w-3 mr-1" />
-                                            Verified
-                                        </Badge>
-                                    )}
-                                </div>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
-                                <div className="flex items-center gap-2 text-primary font-heading font-bold text-3xl">
-                                    <IndianRupee className="h-6 w-6" />
-                                    {listing.rent.toLocaleString('en-IN')}
-                                    <span className="text-lg text-muted-foreground font-normal">/month</span>
-                                </div>
+                    {/* DETAILS */}
+                    <Card shadow="sm" radius="md" mt="lg" p="lg">
+                        <Title order={2}>{listing.pgName}</Title>
 
-                                <div className="flex gap-4">
-                                    <Badge variant="secondary" className="text-sm">
-                                        {roomTypeLabel} Sharing
-                                    </Badge>
-                                    <Badge variant="outline" className="text-sm">
-                                        {occupancyLabel}
-                                    </Badge>
-                                </div>
+                        <Group mt={6} gap={6}>
+                            <IconMapPin size={16} />
+                            <Text size="sm" c="dimmed">
+                                {listing.address}
+                            </Text>
+                        </Group>
 
-                                <div>
-                                    <h3 className="font-heading font-semibold text-lg mb-3">Description</h3>
-                                    <p className="text-muted-foreground leading-relaxed">{listing.description}</p>
-                                </div>
+                        <Group mt="md">
+                            <Title order={3} c="orange">
+                                ₹{Number(listing.rentPerPerson).toLocaleString("en-IN")}
+                            </Title>
+                            <Text c="dimmed">/ month</Text>
+                        </Group>
 
-                                <div>
-                                    <h3 className="font-heading font-semibold text-lg mb-3">Amenities</h3>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                        {listing.amenities.map((amenity) => (
-                                            <div key={amenity} className="flex items-center gap-2 text-sm">
-                                                <CheckCircle2 className="h-4 w-4 text-primary" />
-                                                <span className="capitalize">{amenity}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                        <Group mt="sm">
+                            <Badge>
+                                {roomTypeLabel[listing.roomType] || "Shared"} Sharing
+                            </Badge>
+                            <Badge variant="outline">
+                                {occupancyLabel[listing.occupancy]}
+                            </Badge>
+                        </Group>
 
-                                <div>
-                                    <h3 className="font-heading font-semibold text-lg mb-3">Location</h3>
-                                    <a
-                                        href={listing.mapLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-primary hover:underline flex items-center gap-2"
-                                    >
-                                        <MapPin className="h-4 w-4" />
-                                        View on Google Maps
-                                    </a>
-                                </div>
-                            </CardContent>
+                        <Divider my="md" />
+
+                        <Title order={4}>Description</Title>
+                        <Text mt={6} c="dimmed">
+                            {listing.description}
+                        </Text>
+
+                        <Divider my="md" />
+
+                        <Title order={4}>Amenities</Title>
+
+                        <Group mt="sm" gap="xs">
+                            {amenities.map((a: string, i: number) => (
+                                <Badge
+                                    key={i}
+                                    radius="md"
+                                    color="rgba(255, 72, 0, 0.9)"
+                                    size="lg"
+                                >
+                                    {a}
+                                </Badge>
+                            ))}
+                        </Group>
+
+                        <Divider my="md" />
+
+                        <Anchor
+                            href={listing.googleMapLink}
+                            target="_blank"
+                            c="blue"
+                            fw={500}
+                        >
+                            <Group gap={6}>
+                                <IconMapPin size={16} />
+                                View on Google Maps
+                            </Group>
+                        </Anchor>
+                    </Card>
+
+
+                    {/* REVIEWS (UNCHANGED) */}
+                    <ReviewForm
+                        listingId={listing.id}
+                        existingReview={userReview}
+                        onReviewSubmitted={() => setReviewRefresh((r) => r + 1)}
+                    />
+
+                    <ReviewsList
+                        listingId={listing.id}
+                        refreshTrigger={reviewRefresh}
+                        onUserReviewFound={setUserReview}
+                    />
+                </Grid.Col>
+
+                {/* RIGHT SIDEBAR */}
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                    <Stack>
+                        {/* CONTACT CARD */}
+                        <Card shadow="sm" radius="md" p="lg">
+                            <Title order={4}>Contact Owner</Title>
+
+                            <Text fw={500} mt="sm">
+                                {listing.contactPerson}
+                            </Text>
+
+                            <Anchor
+                                href={`tel:${listing.mobile.split(",")[0]}`}
+                                mt="sm"
+                            >
+                                <Group gap={6}>
+                                    <IconPhone size={16} />
+                                    <Text size="sm">{listing.mobile}</Text>
+                                </Group>
+                            </Anchor>
+
+                            {listing.email && (
+                                <Anchor href={`mailto:${listing.email}`} mt={6}>
+                                    <Group gap={6}>
+                                        <IconMail size={16} />
+                                        <Text size="sm">{listing.email}</Text>
+                                    </Group>
+                                </Anchor>
+                            )}
+
+                            <Button
+                                mt="md"
+                                fullWidth
+                                color="green"
+                                leftSection={<IconBrandWhatsapp size={18} />}
+                                onClick={handleWhatsApp}
+                            >
+                                WhatsApp
+                            </Button>
                         </Card>
 
-                        {/* Reviews Section */}
-                        <ReviewForm
-                            listingId={listing.id}
-                            existingReview={userReview}
-                            onReviewSubmitted={() => setReviewRefresh((r) => r + 1)}
-                        />
-                        <ReviewsList
-                            listingId={listing.id}
-                            refreshTrigger={reviewRefresh}
-                            onUserReviewFound={setUserReview}
-                        />
-                    </div>
+                        {/* INQUIRY FORM */}
+                        <Card shadow="sm" radius="md" p="lg">
+                            <Title order={4}>Send Inquiry</Title>
 
-                    {/* Sidebar */}
-                    <div className="lg:col-span-1">
-                        <div className="sticky top-20 space-y-6">
-                            {/* Contact Info */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="font-heading">Contact Owner</CardTitle>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    <div>
-                                        <p className="font-semibold mb-2">{listing.owner}</p>
-                                        <div className="space-y-2">
-                                            <a
-                                                href={`tel:${listing.contact}`}
-                                                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"
-                                            >
-                                                <Phone className="h-4 w-4" />
-                                                {listing.contact}
-                                            </a>
-                                            <a
-                                                href={`mailto:${listing.email}`}
-                                                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"
-                                            >
-                                                <Mail className="h-4 w-4" />
-                                                {listing.email}
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <Button
-                                        onClick={handleWhatsApp}
-                                        className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"
-                                    >
-                                        <MessageSquare className="mr-2 h-4 w-4" />
-                                        WhatsApp
-                                    </Button>
-                                </CardContent>
-                            </Card>
-
-                            {/* Inquiry Form */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="font-heading">Send Inquiry</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <form onSubmit={handleSubmit} className="space-y-4">
-                                        <div>
-                                            <Label htmlFor="name">Name</Label>
-                                            <Input
-                                                id="name"
-                                                required
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                placeholder="Your name"
-                                            />
-                                        </div>
-                                        <div>
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input
-                                                id="email"
-                                                type="email"
-                                                required
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                placeholder="your.email@example.com"
-                                            />
-                                        </div>
-                                        <div>
-                                            <Label htmlFor="phone">Phone</Label>
-                                            <Input
-                                                id="phone"
-                                                required
-                                                value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                placeholder="+91 98765 43210"
-                                            />
-                                        </div>
-                                        <div>
-                                            <Label htmlFor="message">Message</Label>
-                                            <Textarea
-                                                id="message"
-                                                required
-                                                value={formData.message}
-                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                placeholder="Tell us about your requirements..."
-                                                rows={4}
-                                            />
-                                        </div>
-                                        <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                                            Send Inquiry
-                                        </Button>
-                                    </form>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            <form onSubmit={handleSubmit}>
+                                <Stack mt="md">
+                                    <TextInput
+                                        label="Name"
+                                        required
+                                        value={formData.name}
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, name: e.target.value })
+                                        }
+                                    />
+                                    <TextInput
+                                        label="Email"
+                                        type="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, email: e.target.value })
+                                        }
+                                    />
+                                    <TextInput
+                                        label="Phone"
+                                        required
+                                        value={formData.phone}
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, phone: e.target.value })
+                                        }
+                                    />
+                                    <Textarea
+                                        label="Message"
+                                        required
+                                        minRows={3}
+                                        value={formData.message}
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, message: e.target.value })
+                                        }
+                                    />
+                                    <Button type="submit">Send Inquiry</Button>
+                                </Stack>
+                            </form>
+                        </Card>
+                    </Stack>
+                </Grid.Col>
+            </Grid>
+        </Container>
     );
 };
 
