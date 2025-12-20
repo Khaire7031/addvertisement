@@ -8,6 +8,7 @@ import PGDetails from '@/components/PGDetails';
 
 export default function AllPgList() {
     const { pgList, loading } = usePGData();
+    
     const [filteredData, setFilteredData] = useState<PostData[]>([]);
 
     // Initialize data
