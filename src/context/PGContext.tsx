@@ -11,6 +11,7 @@ export const PGProvider = ({ children }: { children: React.ReactNode }) => {
         async function loadData() {
             setLoading(true);
             const data = await getGoogleSheetData();
+            console.log("Data : ", data)
             setPgList(data);
             setLoading(false);
         }

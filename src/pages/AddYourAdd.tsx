@@ -11,7 +11,7 @@ import { Home } from "lucide-react";
 import LocationPicker from "@/components/LocationPicker";
 import PGImageUploader from '../components/PGImageUploader';
 import AmenitiesSelector from '@/components/AmenitiesSelector';
-import { sendToGoogleSheet } from "@/utility/sendToGoogleSheet";
+import { sendToBackend } from "@/utility/sendToGoogleSheet";
 
 const categories = ["PG", "1RK", "1BHK", "2BHK", "3BHK", "Apartment"];
 const roomTypes = ["single", "double", "triple"];
@@ -41,6 +41,7 @@ interface FormData {
     latitude: number | null;
     longitude: number | null;
     imagesIds: string;
+    googleMapLink: string
 }
 const AddYourAdd = () => {
 
@@ -66,7 +67,8 @@ const AddYourAdd = () => {
         acceptTerms: false,
         latitude: null as number | null,
         longitude: null as number | null,
-        imagesIds: ""
+        imagesIds: "",
+        googleMapLink: ""
     });
 
 
@@ -83,7 +85,7 @@ const AddYourAdd = () => {
         console.log("Form submitted:", formData);
         toast.success("Your PG listing has been submitted successfully! We'll verify and list it soon.");
 
-        const data = await sendToGoogleSheet(formData);
+        const data = await sendToBackend(formData);
 
         if (data != null) {
             toast.success("Form data sent to Database!");
@@ -112,7 +114,8 @@ const AddYourAdd = () => {
             acceptTerms: false,
             latitude: null,
             longitude: null,
-            imagesIds: ""
+            imagesIds: "",
+            googleMapLink: ""
         });
     };
 

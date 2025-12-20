@@ -1,145 +1,103 @@
-export async function sendToGoogleSheet(formData: any) {
-    const token = import.meta.env.VITE_GOOGLE_SHEET_TOKEN;
-    const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
+export async function sendToBackend(formData: any) {
 
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:append?valueInputOption=RAW`;
+    const backendDomain = import.meta.env.VITE_BACKEND_DOMAIN;
+    const url = `${backendDomain}/api/sheet/add`;
 
-    const body = {
-        values: [
-            [
-                formData.id,
-                formData.pgName,
-                formData.ownerName,
-                formData.contactPerson,
-                formData.mobile,
-                formData.whatsapp,
-                formData.email,
-                formData.address,
-                formData.category,
-                formData.numberOfRooms,
-                formData.deposit,
-                formData.rentPerPerson,
-                formData.roomType,
-                formData.occupancy,
-                formData.description,
-                formData.amenities.join(", "),
-                formData.images,
-                formData.acceptTerms,
-                formData.latitude,
-                formData.longitude,
-                formData.lightBillIncluded,
-                new Date().toISOString(), // Created At
-                // google map link
-                formData.imagesIds
-            ]
-        ]
-    };
+    const row = [
+        "123",
+        formData.pgName,
+        formData.ownerName,
+        formData.contactPerson,
+        formData.mobile,
+        formData.whatsapp,
+        formData.email,
+        formData.address,
+        formData.category,
+        formData.numberOfRooms,
+        formData.deposit,
+        formData.rentPerPerson,
+        formData.roomType,
+        formData.occupancy,
+        formData.description,
+        formData.amenities.join(", "),
+        formData.images.join(", "),
+        formData.acceptTerms ? "TRUE" : "FALSE",
+        formData.latitude,
+        formData.longitude,
+        formData.lightBillIncluded === "included" ? "TRUE" : "FALSE",
+        new Date().toISOString(),
+        formData.imagesIds,
+        formData.googleMapLink
+    ];
 
-    try {
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        });
+    const res = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(row)
+    });
 
-        const data = await res.json();
-        console.log("Sheet Updated:", data);
-        return data;
-    } catch (err) {
-        console.error("Sheet Error:", err);
-        throw err;
-    }
+    return await res.text();
 }
 
 
 export async function getGoogleSheetData() {
-    const token = import.meta.env.VITE_GOOGLE_SHEET_TOKEN;
-    const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
+    const backendDomain = import.meta.env.VITE_BACKEND_DOMAIN;
+    const url = `${backendDomain}/api/sheet/read`;
 
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:Z`;
-
-    console.log("Fetching Google Sheet Data from URL:", token ? url : "No token provided");
     try {
         const res = await fetch(url, {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         });
 
+        if (!res.ok) {
+            throw new Error("Failed to fetch PG data");
+        }
+
         const data = await res.json();
-        console.log("Raw Sheet Data:", data);
 
-        if (!data.values || data.values.length === 0) return [];
-
-        // First row = headers
-        const headers = data.values[0];
-
-        // Remaining rows = PG entries
-        const rows = data.values.slice(1);
-
-        // Convert rows[][] → array of PG objects
-        const pgList = rows.map((row: any[]) => {
-            const obj: any = {};
-            headers.forEach((key: string, i: number) => {
-                obj[key] = row[i] ?? "";
-            });
-            return obj;
-        });
-
-        return pgList; // <-- final clean output
+        // Normalize backend response for frontend use
+        return data.map((row: any) => ({
+            id: Number(row.id) || 0,
+            pgName: row.pgName || "",
+            ownerName: row.ownerName || "",
+            contactPerson: row.contactPerson || "",
+            mobile: row.mobile || "",
+            whatsapp: row.whatsapp || "",
+            email: row.email || "",
+            address: row.address || "",
+            category: row.category || "",
+            numberOfRooms: row.numberOfRooms || "",
+            deposit: row.deposit || "",
+            rentPerPerson: row.rentPerPerson || "",
+            roomType: row.roomType || "",
+            occupancy: row.occupancy || "",
+            description: row.description || "",
+            amenities: row.amenities
+                ? row.amenities.split(",").map((a: string) => a.trim())
+                : [],
+            images: row.images
+                ? row.images.split(",").map((img: string) => img.trim())
+                : [],
+            acceptTerms: row.acceptTerms === "TRUE",
+            latitude: row.latitude ? Number(row.latitude) : null,
+            longitude: row.longitude ? Number(row.longitude) : null,
+            lightBillIncluded:
+                row.lightBillIncluded === "TRUE" || row.lightBillIncluded === "included",
+            createdAt: row.createdAt || "",
+            imagesIds: row.imagesIdss || row.imagesIds || "",
+            googleMapLink: row.googleMapLink || ""
+        }));
     } catch (err) {
-        console.error("Google Sheet Fetch Error:", err);
+        console.error("Backend Fetch Error:", err);
         return [];
     }
 }
 
 
 
-export async function fetchSheetPublic() {
-    const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
-
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
-
-    const response = await fetch(url);
-    const text = await response.text();
-
-    const json = JSON.parse(text.substring(47, text.length - 2));
-
-    return json.table.rows.map(r =>
-        r.c.map(c => (c ? c.v : ""))
-    );
-}
-
-export async function fetchSheetPublicAsObjects() {
-    const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
-
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
-
-    const response = await fetch(url);
-    const text = await response.text();
-
-    // Convert GViz JSON to normal JSON
-    const json = JSON.parse(text.substring(47, text.length - 2));
-
-    const rows = json.table.rows;
-    const headers = json.table.cols.map(col => col.label || "");
-
-    // Convert all rows into objects
-    const data = rows.map(row => {
-        const obj: any = {};
-
-        row.c.forEach((cell, i) => {
-            obj[headers[i]] = cell ? cell.v : "";
-        });
-
-        return obj;
-    });
-
-    return data;
-}
 

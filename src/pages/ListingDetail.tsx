@@ -16,8 +16,12 @@ const ListingDetail = () => {
     const navigate = useNavigate();
     const { pgList, loading } = usePGData();
 
-    const listing = pgList.find((l: any) => l.id === id);
+    const listing = pgList.find((l: any) => {
+        console.log("Comparing listing id:", l.id, "with param id:", id);
+        return l.id === Number(id);
+    });
 
+    console.log("Listing Detail - Loaded listing:", pgList);
     console.log("Listing Detail - Loaded listing:", listing);
 
     const [formData, setFormData] = useState({
@@ -50,13 +54,9 @@ const ListingDetail = () => {
     }
 
     /* ---------------- NORMALIZATION ---------------- */
-    const images = listing.images
-        ? listing.images.split(",").map((i: string) => i.trim())
-        : [];
+    const images = listing.images || [];
 
-    const amenities = listing.amenities
-        ? listing.amenities.split(",").map((a: string) => a.trim())
-        : [];
+    const amenities = listing.amenities || [];
 
     const roomTypeLabel: any = {
         single: "Single",

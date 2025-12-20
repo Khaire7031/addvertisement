@@ -8,27 +8,9 @@ import { LayoutGrid, Map } from "lucide-react";
 import listingsData from "@/data/listings.json";
 import { getGoogleSheetData } from "@/utility/sendToGoogleSheet";
 import { usePGData } from "@/context/PGContext";
+import { PostData } from "@/dto/PG";
 
-interface PostData {
-    id?: string;
-    pgName: string;
-    ownerName: string;
-    contactPerson: string;
-    mobile: string;
-    whatsapp: string;
-    email: string;
-    address: string;
-    category: string;
-    numberOfRooms: string;
-    deposit: string;
-    rentPerPerson: string;
-    roomType: string;
-    occupancy: string;
-    description: string;
-    amenities: string;
-    images: string;
-    googleMapLink: string;
-}
+
 
 const Listings = () => {
     const [searchTerm, setSearchTerm] = useState("");

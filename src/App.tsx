@@ -7,13 +7,13 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Home from "./pages/Home";
-import Listings from "./pages/Listings";
 import ListingDetail from "./pages/ListingDetail";
 import ListYourPG from "./pages/AddYourAdd";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import AllPgList from "./pages/AllPgList";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +29,7 @@ const App = () => (
                         <main className="flex-1">
                             <Routes>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/listings" element={<Listings />} />
+                                <Route path="/listings" element={<AllPgList />} />
                                 <Route path="/listing/:id" element={<ListingDetail />} />
                                 <Route path="/list-your-pg" element={<ListYourPG />} />
                                 <Route path="/about" element={<About />} />

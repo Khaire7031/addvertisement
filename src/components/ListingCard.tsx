@@ -1,4 +1,4 @@
-import { MapPin, IndianRupee, CheckCircle2 } from "lucide-react";
+import { MapPin, IndianRupee, CheckCircle2, User } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -7,41 +7,8 @@ import FavoriteButton from "@/components/FavoriteButton";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useEffect, useState } from "react";
 import { Carousel } from '@mantine/carousel';
-
-interface Listing {
-    id: string;
-    title: string;
-    city: string;
-    area: string;
-    rent: number;
-    roomType: string;
-    occupancy: string;
-    verified: boolean;
-    image: string;
-    amenities: string[];
-}
-
-interface PostData {
-    id?: string;
-    pgName: string;
-    ownerName: string;
-    contactPerson: string;
-    mobile: string;
-    whatsapp: string;
-    email: string;
-    address: string;
-    category: string;
-    numberOfRooms: string;
-    deposit: string;
-    rentPerPerson: string;
-    roomType: string;
-    occupancy: string;
-    description: string;
-    amenities: string;
-    images: string;
-    googleMapLink: string;
-}
-
+import { Group } from "@mantine/core";
+import { PostData } from "@/dto/PG";
 
 interface ListingCardProps {
     listing: PostData;
@@ -55,19 +22,12 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
     const [amenities, setAmenities] = useState<string[]>([]);
 
     useEffect(() => {
-        // console.log("Listing:", listing.id, "Images type:", typeof listing.images, "Value:", listing.images);
         if (typeof listing.images === 'string') {
             setImages(listing.images.split(","));
         } else if (Array.isArray(listing.images)) {
             setImages(listing.images);
         } else {
             setImages([]);
-        }
-
-        if (typeof listing.amenities === 'string') {
-            setAmenities(listing.amenities.split(","));
-        } else {
-            setAmenities([]);
         }
     }, [listing]);
 
@@ -84,51 +44,27 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
     }[listing.occupancy];
 
     return (
-        <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
+        <Card className="lg:w-[330px] overflow-hidden hover:shadow-lg transition-all duration-300 group">
             <div className="relative overflow-hidden">
-                {/* <img
-                    src={listing.images.split(",")[0]}
-                    alt={listing.pgName}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                /> */}
                 <Carousel
                     withIndicators
                     height={200}
                     slideSize="100%"
                     slideGap="md"
                 >
-                    {/* This are the sample images util issue is fixed */}
-                    {/* <Carousel.Slide>
-                        <img
-                            src="https://content.jdmagicbox.com/v2/comp/bangalore/g2/080pxx80.xx80.200104135109.k2g2/catalogue/srm-pg-chamarajpet-bangalore-paying-guest-accommodations-for-men-qjfakk97b8.jpg"
-                            alt={listing.pgName}
-                            className="w-full h-full object-cover"
-                        />
-                    </Carousel.Slide>
-                    <Carousel.Slide>
-                        <img
-                            src="https://content.jdmagicbox.com/v2/comp/delhi/e3/011pxx11.xx11.160928133111.h2e3/catalogue/vardhman-pg-karol-bagh-delhi-paying-guest-accommodations-for-women-rww7ofmbr9.jpg"
-                            alt={listing.pgName}
-                            className="w-full h-full object-cover"
-                        />
-                    </Carousel.Slide>
-                    <Carousel.Slide>
-                        <img
-                            src="https://alexandro.in/image/pune/yourspace-vimannagar/4.jpg"
-                            alt={listing.pgName}
-                            className="w-full h-full object-cover"
-                        />
-                    </Carousel.Slide> */}
-
-                    {images.slice(7).map((image) => (
-                        <Carousel.Slide key={image}>
-                            <img
-                                src={image}
-                                alt={listing.pgName}
-                                className="w-full h-full object-cover"
-                            />
-                        </Carousel.Slide>
-                    ))}
+                    {
+                        images.length > 0 ?
+                            images.slice(0, 7).map((image, index) => (
+                                <Carousel.Slide key={index}>
+                                    <img
+                                        src={image}
+                                        alt={listing.pgName}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </Carousel.Slide>
+                            ))
+                            : 1
+                    }
                 </Carousel>
 
                 {verified && (
@@ -149,14 +85,11 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
             </div>
 
             <CardContent className="p-4">
-                <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-1">{listing.pgName}</h3>
+                <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-2">{listing.pgName}</h3>
 
-                {/* <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
-                    <MapPin className="h-4 w-4" />
-                    <span>{listing.area}, {listing.city}</span>
-                </div> */}
-
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center capitalize gap-1 text-muted-foreground text-sm mb-3">
+                    <User className="h-4 w-4" />
+                    <span>{listing.category}</span>
                     <Badge variant="secondary" className="text-xs">
                         {roomTypeLabel} Sharing
                     </Badge>
@@ -166,16 +99,19 @@ const ListingCard = ({ listing, showFavoriteButton = true }: ListingCardProps) =
                 </div>
 
                 <div className="flex flex-wrap gap-1 mb-3">
-                    {amenities.slice(0, 3).map((amenity) => (
+                    {amenities.slice(5).map((amenity) => (
                         <span key={amenity} className="text-xs bg-muted px-2 py-1 rounded">
                             {amenity}
                         </span>
                     ))}
-                    {amenities.length > 3 && (
-                        <span className="text-xs bg-muted px-2 py-1 rounded">
-                            +{amenities.length - 3} more
-                        </span>
-                    )}
+                    <Group gap="xs">
+                        {listing.amenities.slice(0, 5).map((amenity, index) => (
+                            <Badge key={index} color="blue">
+                                {amenity}
+                            </Badge>
+                        ))}
+                        more...
+                    </Group>
                 </div>
 
                 <div className="flex items-center gap-1 text-primary font-heading font-bold text-xl">

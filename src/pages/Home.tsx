@@ -2,14 +2,13 @@ import { ArrowRight, Search, Shield, Star, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import ListingCard from "@/components/ListingCard";
-import listingsData from "@/data/listings.json";
+import DummyData from "@/data/DummyData.json";
 import heroImage from "@/assets/hero-bg.jpg";
 import About from "./About";
 
 const Home = () => {
-    const featuredListings = listingsData.slice(0, 3);
 
-
+    const featuredListings = DummyData.slice(0, 3);
 
     return (
         <div className="min-h-screen">
