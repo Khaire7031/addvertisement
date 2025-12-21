@@ -31,6 +31,18 @@ const Navbar = () => {
                     <NavLink to="/" className="flex items-center gap-2">
                         <Home className="h-6 w-6 text-primary" />
                         <span className="text-xl font-heading font-bold text-foreground">PG Finder</span>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <img
+                                src="https://visitor-badge.laobi.icu/badge?page_id=addvertisement-red.vercel.app
+                                        &left_color=fb923c
+                                        &right_color=fb923c
+                                        &left_text=Visitors"
+                                className="h-5"
+                                alt="Visitors"
+                            />
+
+
+                        </div>
                     </NavLink>
 
                     {/* Desktop Navigation */}
