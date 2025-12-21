@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import AllPgList from "./pages/AllPgList";
+import { Analytics } from '@vercel/analytics/next';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
                             </Routes>
                         </main>
                         <Footer />
+                        <Analytics />
                     </div>
                 </AuthProvider>
             </BrowserRouter>
